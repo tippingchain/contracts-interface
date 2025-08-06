@@ -4,34 +4,28 @@ import { ContractAddresses, DeploymentManifest } from './types';
 // For now, it contains placeholder addresses that must be configured
 export const CONTRACT_ADDRESSES: DeploymentManifest = {
   mainnet: {
-    1: "",
-    10: "",
-    56: "",
-    137: "",
-    2741: "",
-    8453: "",
-    33139: "",
-    42161: "",
-    43114: "",
-    167000: "",
-    mainnet: {
-      8453: "0x7E51b1A637efccBd91cE2e951953b8CCC7DAbc07"
-    },
-    testnet: {},
-    timestamp: "2025-08-06T07:39:00.587Z",
-    version: "1.0.0"
+    1: "", // Ethereum
+    10: "", // Optimism
+    56: "", // BSC
+    137: "", // Polygon
+    2741: "", // Abstract
+    8453: "0x7E51b1A637efccBd91cE2e951953b8CCC7DAbc07", // Base ✅ DEPLOYED
+    33139: "", // ApeChain
+    42161: "", // Arbitrum
+    43114: "", // Avalanche
+    167000: "" // Taiko
   },
   testnet: {
-    97: "",
-    11124: "",
-    17000: "",
-    33111: "",
-    43113: "",
-    80002: "",
-    84532: "",
-    167009: "",
-    421614: "",
-    11155420: ""
+    97: "", // BSC Testnet
+    11124: "", // Abstract Testnet
+    17000: "", // Holesky (Ethereum)
+    33111: "", // Curtis (ApeChain)
+    43113: "", // Fuji (Avalanche)
+    80002: "", // Amoy (Polygon)
+    84532: "", // Base Sepolia
+    167009: "", // Taiko Hekla
+    421614: "", // Arbitrum Sepolia
+    11155420: "" // Optimism Sepolia
   },
   timestamp: "2025-08-06T07:39:03.822Z",
   version: "1.2.0"
