@@ -2,7 +2,8 @@
 
 Public contract interfaces and ABIs for TippingChain. This package provides the necessary interfaces to interact with TippingChain smart contracts without exposing implementation details.
 
-## Version 1.2.0 Updates
+## Version 1.2.0 Updates ✨
+- **✅ Base Mainnet Live**: Contract deployed at `0x7E51b1A637efccBd91cE2e951953b8CCC7DAbc07`
 - **Integrated Relay.link Architecture**: Direct integration in TippingChain Contracts.
 - **Updated ABI**: Latest contract ABI with integrated relay functionality
 - **New Constants**: Added RELAY_ERC20_ROUTER, VIEWER_REWARD_FEE, relay receiver addresses
@@ -30,27 +31,39 @@ import {
   getRelayReceiverAddress
 } from '@tippingchain/contracts-interface';
 
-// Get contract address for a specific chain
-const polygonContract = getContractAddress(SUPPORTED_CHAINS.POLYGON);
+// Get Base mainnet contract address (LIVE!)
+const baseContract = getContractAddress(SUPPORTED_CHAINS.BASE);
+console.log(baseContract); // 0x7E51b1A637efccBd91cE2e951953b8CCC7DAbc07
 
-// Get the correct relay receiver for a chain
-const relayReceiver = getRelayReceiverAddress(SUPPORTED_CHAINS.ETHEREUM);
+// Get the correct relay receiver for Base
+const relayReceiver = getRelayReceiverAddress(SUPPORTED_CHAINS.BASE);
 
 // Access new constants
 const viewerRewardFee = CONTRACT_CONSTANTS.VIEWER_REWARD_FEE; // 100 (1% platform fee)
 const relayRouter = CONTRACT_CONSTANTS.RELAY_ERC20_ROUTER;
 
-// Use the ABI with ethers or web3
+// Use the ABI with ethers or web3 on Base
 const contract = new ethers.Contract(
-  polygonContract,
+  baseContract,
   STREAMING_PLATFORM_TIPPING_ABI,
   provider
+);
+
+// Example: Add a creator on Base
+await contract.addCreator(
+  "0x742d35Cc6648C4532b4C7C8E2a6A6F5a8C8D7C21", // creator wallet
+  MembershipTier.TIER_2, // 70/30 split
+  "" // thirdweb ID (optional)
 );
 ```
 
 ## Contract Addresses
 
 Contract addresses are managed through the deployment manifest. After contracts are deployed, the addresses will be updated in this package.
+
+### 🚀 Live Deployment Status
+- **Base Mainnet**: ✅ **LIVE** - Ready for production tips → USDC on ApeChain
+- **Other Networks**: 🔄 **Coming Soon** - Deploy using existing Base setup
 
 ### Mainnet Addresses
 - Ethereum: TBD
@@ -59,21 +72,22 @@ Contract addresses are managed through the deployment manifest. After contracts 
 - BSC: TBD
 - Abstract: TBD
 - Avalanche: TBD
-- Base: TBD
+- **Base: `0x7E51b1A637efccBd91cE2e951953b8CCC7DAbc07`** ✅ **DEPLOYED**
+  - Supported tokens: USDC, DAI, WETH
 - Arbitrum: TBD
 - Taiko: TBD
 - ApeChain: TBD (Destination chain for USDC payouts)
 
-### Testnet Addresses
-- Sepolia: TBD
-- Mumbai: TBD
-- Optimism Goerli: TBD
+### Testnet Addresses (v2.0 Updated)
+- **Holesky (Ethereum)**: TBD (replaces deprecated Sepolia)
+- **Amoy (Polygon)**: TBD (replaces deprecated Mumbai)
+- Optimism Sepolia: TBD
 - BSC Testnet: TBD
 - Avalanche Fuji: TBD
 - Base Sepolia: TBD
 - Arbitrum Sepolia: TBD
 - Taiko Hekla: TBD
-- ApeChain Testnet: TBD
+- **Curtis (ApeChain)**: TBD (destination chain for testnet)
 
 ## Types
 
