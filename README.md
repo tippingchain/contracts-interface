@@ -3,7 +3,8 @@
 Public contract interfaces and ABIs for TippingChain. This package provides the necessary interfaces to interact with TippingChain smart contracts without exposing implementation details.
 
 ## Version 1.2.0 Updates ✨
-- **✅ Base Mainnet Live**: Contract deployed at `0x7E51b1A637efccBd91cE2e951953b8CCC7DAbc07`
+- **✅ Base Mainnet Live**: Contract deployed at `0x4d720d3916af749F5bCD00409B59Ec35E654290B`
+- **🔐 Admin Role System**: Both contract owner and designated admins can manage creators
 - **Integrated Relay.link Architecture**: Direct integration in TippingChain Contracts.
 - **Updated ABI**: Latest contract ABI with integrated relay functionality
 - **New Constants**: Added RELAY_ERC20_ROUTER, VIEWER_REWARD_FEE, relay receiver addresses
@@ -33,7 +34,7 @@ import {
 
 // Get Base mainnet contract address (LIVE!)
 const baseContract = getContractAddress(SUPPORTED_CHAINS.BASE);
-console.log(baseContract); // 0x7E51b1A637efccBd91cE2e951953b8CCC7DAbc07
+console.log(baseContract); // 0x4d720d3916af749F5bCD00409B59Ec35E654290B
 
 // Get the correct relay receiver for Base
 const relayReceiver = getRelayReceiverAddress(SUPPORTED_CHAINS.BASE);
@@ -49,12 +50,18 @@ const contract = new ethers.Contract(
   provider
 );
 
-// Example: Add a creator on Base
+// Example: Add a creator on Base (requires owner or admin permissions)
 await contract.addCreator(
   "0x742d35Cc6648C4532b4C7C8E2a6A6F5a8C8D7C21", // creator wallet
   MembershipTier.TIER_2, // 70/30 split
   "" // thirdweb ID (optional)
 );
+
+// Grant admin privileges (owner only)
+await contract.grantAdmin("0xAdminWalletAddress");
+
+// Check if address is an admin
+const isAdmin = await contract.admins("0xAdminWalletAddress");
 ```
 
 ## Contract Addresses
@@ -72,7 +79,8 @@ Contract addresses are managed through the deployment manifest. After contracts 
 - BSC: TBD
 - Abstract: TBD
 - Avalanche: TBD
-- **Base: `0x7E51b1A637efccBd91cE2e951953b8CCC7DAbc07`** ✅ **DEPLOYED**
+- **Base: `0x4d720d3916af749F5bCD00409B59Ec35E654290B`** ✅ **DEPLOYED**
+  - **Admin System**: Multi-admin creator management enabled
   - Supported tokens: USDC, DAI, WETH
 - Arbitrum: TBD
 - Taiko: TBD
