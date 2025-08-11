@@ -9,7 +9,7 @@ export const CONTRACT_ADDRESSES: DeploymentManifest = {
     56: "",
     137: "",
     2741: "",
-    8453: "0x4d720d3916af749F5bCD00409B59Ec35E654290B",
+    8453: "0x0430E9549f384529F254983Cf93d54430bE6201C",
     33139: "",
     42161: "",
     43114: "",

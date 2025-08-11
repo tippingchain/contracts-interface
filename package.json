@@ -19,12 +19,12 @@
     "node": ">=16.0.0"
   },
   "scripts": {
-    "build": "rollup -c",
-    "dev": "rollup -c -w",
+    "build": "npm run clean && npm run manual:build",
+    "dev": "npm run build",
     "typecheck": "tsc --noEmit",
-    "prepublishOnly": "rm -rf dist && ./node_modules/.bin/tsc --noEmit && ./node_modules/.bin/tsc",
+    "prepublishOnly": "rm -rf dist && npm run build",
     "clean": "rm -rf dist",
-    "manual:build": "tsc",
+    "manual:build": "./node_modules/.bin/tsc src/types.ts --outDir dist --moduleResolution node --target es2020 && ./node_modules/.bin/tsc src/addresses.ts --outDir dist --moduleResolution node --target es2020 && ./node_modules/.bin/tsc src/index.ts --outDir dist --moduleResolution node --target es2020 --resolveJsonModule --allowSyntheticDefaultImports && cp dist/index.js dist/index.cjs.js && ./node_modules/.bin/tsc src/index.ts --declaration --emitDeclarationOnly --outDir dist --moduleResolution node --target es2020 --resolveJsonModule --allowSyntheticDefaultImports",
     "update:addresses": "node scripts/update-addresses.js"
   },
   "files": [
@@ -50,6 +50,6 @@
     "rimraf": "^5.0.0",
     "rollup": "^4.0.0",
     "rollup-plugin-dts": "^6.0.0",
-    "typescript": "^5.0.0"
+    "typescript": "^5.9.2"
   }
 }

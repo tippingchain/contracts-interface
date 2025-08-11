@@ -3,9 +3,9 @@ export * from './types';
 export * from './addresses';
 
 // Import and re-export the ABI
-import StreamingPlatformTippingABI from '../abi/StreamingPlatformTipping.json';
+import StreamingPlatformTippingArtifact from '../abi/StreamingPlatformTipping.json';
 
-export const STREAMING_PLATFORM_TIPPING_ABI = StreamingPlatformTippingABI;
+export const STREAMING_PLATFORM_TIPPING_ABI = StreamingPlatformTippingArtifact.abi;
 
 // Convenience exports
 export { 
