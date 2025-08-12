@@ -166,7 +166,10 @@ export const CONTRACT_CONSTANTS = {
   MIN_VIEWER_REWARD: 100,
   APECHAIN_ID: 33139,
   APECHAIN_USDC: '0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359',
-  RELAY_ERC20_ROUTER: '0xF5042e6ffaC5a625D4E7848e0b01373D8eB9e222'
+  RELAY_ERC20_ROUTER: '0xF5042e6ffaC5a625D4E7848e0b01373D8eB9e222',
+  TIMELOCK_DURATION: 172800, // 2 days in seconds
+  REVEAL_WINDOW: 3600, // 1 hour in seconds
+  MAX_BATCH_SIZE: 50 // Maximum batch size for operations
 } as const;
 
 // Tier creator shares (in basis points, applied after platform fee)
@@ -184,6 +187,14 @@ export const RELAY_RECEIVER_ADDRESSES = {
   // ApeChain uses a different receiver
   APECHAIN: '0xa06e1351e2fd2d45b5d35633ca7ecf328684a109'
 } as const;
+
+// Enum for Relay Status
+export enum RelayStatus {
+  None = 0,
+  Pending = 1,
+  Confirmed = 2,
+  Failed = 3
+}
 
 // Helper function to get the correct relay receiver for a chain
 export function getRelayReceiverAddress(chainId: number): string {

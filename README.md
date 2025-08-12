@@ -1,16 +1,17 @@
-# @tippingchain/contracts-interface
+# TippingChain Contracts Interface
 
-Public contract interfaces and ABIs for TippingChain. This package provides the necessary interfaces to interact with TippingChain smart contracts without exposing implementation details.
+This package provides the interface for interacting with TippingChain smart contracts. It includes the ABI, contract addresses, and TypeScript types for seamless integration with frontend and backend applications.
 
-## Version 1.2.0 Updates ✨
-- **✅ Base Mainnet Live**: Contract deployed at `0x4d720d3916af749F5bCD00409B59Ec35E654290B`
-- **🔐 Admin Role System**: Both contract owner and designated admins can manage creators
-- **Integrated Relay.link Architecture**: Direct integration in TippingChain Contracts.
-- **Updated ABI**: Latest contract ABI with integrated relay functionality
-- **New Constants**: Added RELAY_ERC20_ROUTER, VIEWER_REWARD_FEE, relay receiver addresses
-- **Testnet Updates**: Updated to Holesky (replacing Sepolia) and Amoy (replacing Mumbai)
-- **Viewer Rewards**: Full support for viewer rewards system with 1% platform fee
-- **Relay Receiver Helpers**: Added getRelayReceiverAddress() function for chain-specific receivers
+## Overview
+
+TippingChain is a decentralized tipping platform for streaming services, enabling direct payments to content creators across multiple blockchain networks. This interface package facilitates interaction with the deployed smart contracts, supporting features like tipping creators, viewer rewards, and administrative functions.
+
+## Features
+
+- **ABI Definitions**: JSON ABI for the `StreamingPlatformTipping` contract.
+- **TypeScript Types**: Type definitions for contract interactions, including membership tiers and network configurations.
+- **Contract Addresses**: Deployment manifest with addresses for supported chains (mainnet and testnet).
+- **Network Configurations**: Constants and helpers for supported blockchain networks.
 
 ## Installation
 
@@ -20,109 +21,61 @@ npm install @tippingchain/contracts-interface
 
 ## Usage
 
-```typescript
-import { 
-  STREAMING_PLATFORM_TIPPING_ABI,
-  SUPPORTED_CHAINS,
-  SUPPORTED_TESTNETS,
-  MembershipTier,
-  CONTRACT_CONSTANTS,
-  RELAY_RECEIVER_ADDRESSES,
-  getContractAddress,
-  getRelayReceiverAddress
-} from '@tippingchain/contracts-interface';
+### Importing ABI
 
-// Get Base mainnet contract address (LIVE!)
-const baseContract = getContractAddress(SUPPORTED_CHAINS.BASE);
-console.log(baseContract); // 0x4d720d3916af749F5bCD00409B59Ec35E654290B
-
-// Get the correct relay receiver for Base
-const relayReceiver = getRelayReceiverAddress(SUPPORTED_CHAINS.BASE);
-
-// Access new constants
-const viewerRewardFee = CONTRACT_CONSTANTS.VIEWER_REWARD_FEE; // 100 (1% platform fee)
-const relayRouter = CONTRACT_CONSTANTS.RELAY_ERC20_ROUTER;
-
-// Use the ABI with ethers or web3 on Base
-const contract = new ethers.Contract(
-  baseContract,
-  STREAMING_PLATFORM_TIPPING_ABI,
-  provider
-);
-
-// Example: Add a creator on Base (requires owner or admin permissions)
-await contract.addCreator(
-  "0x742d35Cc6648C4532b4C7C8E2a6A6F5a8C8D7C21", // creator wallet
-  MembershipTier.TIER_2, // 70/30 split
-  "" // thirdweb ID (optional)
-);
-
-// Grant admin privileges (owner only)
-await contract.grantAdmin("0xAdminWalletAddress");
-
-// Check if address is an admin
-const isAdmin = await contract.admins("0xAdminWalletAddress");
+```javascript
+import StreamingPlatformTippingABI from '@tippingchain/contracts-interface/abi/StreamingPlatformTipping.json';
 ```
 
-## Contract Addresses
+### Using Types and Constants
 
-Contract addresses are managed through the deployment manifest. After contracts are deployed, the addresses will be updated in this package.
-
-### 🚀 Live Deployment Status
-- **Base Mainnet**: ✅ **LIVE** - Ready for production tips → USDC on ApeChain
-- **Other Networks**: 🔄 **Coming Soon** - Deploy using existing Base setup
-
-### Mainnet Addresses
-- Ethereum: TBD
-- Polygon: TBD
-- Optimism: TBD
-- BSC: TBD
-- Abstract: TBD
-- Avalanche: TBD
-- **Base: `0x4d720d3916af749F5bCD00409B59Ec35E654290B`** ✅ **DEPLOYED**
-  - **Admin System**: Multi-admin creator management enabled
-  - Supported tokens: USDC, DAI, WETH
-- Arbitrum: TBD
-- Taiko: TBD
-- ApeChain: TBD (Destination chain for USDC payouts)
-
-### Testnet Addresses (v2.0 Updated)
-- **Holesky (Ethereum)**: TBD (replaces deprecated Sepolia)
-- **Amoy (Polygon)**: TBD (replaces deprecated Mumbai)
-- Optimism Sepolia: TBD
-- BSC Testnet: TBD
-- Avalanche Fuji: TBD
-- Base Sepolia: TBD
-- Arbitrum Sepolia: TBD
-- Taiko Hekla: TBD
-- **Curtis (ApeChain)**: TBD (destination chain for testnet)
-
-## Types
-
-### MembershipTier
 ```typescript
-enum MembershipTier {
-  TIER_1 = 0, // 60/40 split (creator/business)
-  TIER_2 = 1, // 70/30 split
-  TIER_3 = 2, // 80/20 split
-  TIER_4 = 3  // 90/10 split
-}
+import { MembershipTier, SUPPORTED_CHAINS, CONTRACT_CONSTANTS } from '@tippingchain/contracts-interface';
+
+// Check platform fee
+console.log(`Platform fee: ${CONTRACT_CONSTANTS.TIPPINGCHAIN_FEE / CONTRACT_CONSTANTS.BASIS_POINTS * 100}%`);
+
+// Get creator share for a tier
+import { TIER_CREATOR_SHARES } from '@tippingchain/contracts-interface';
+console.log(`Creator share for Tier 2: ${TIER_CREATOR_SHARES[MembershipTier.TIER_2] / CONTRACT_CONSTANTS.BASIS_POINTS * 100}%`);
 ```
 
-### Supported Chains
+### Accessing Contract Addresses
+
 ```typescript
-const SUPPORTED_CHAINS = {
-  ETHEREUM: 1,
-  POLYGON: 137,
-  OPTIMISM: 10,
-  BSC: 56,
-  ABSTRACT: 2741,
-  APECHAIN: 33139,
-  AVALANCHE: 43114,
-  BASE: 8453,
-  ARBITRUM: 42161,
-  TAIKO: 167000
-}
+import { addresses } from '@tippingchain/contracts-interface';
+
+const contractAddress = addresses[SUPPORTED_CHAINS.APECHAIN];
+console.log(`ApeChain contract address: ${contractAddress}`);
+```
+
+## Supported Chains
+
+- Ethereum (1)
+- Polygon (137)
+- Optimism (10)
+- Binance Smart Chain (56)
+- Abstract (2741)
+- ApeChain (33139)
+- Avalanche (43114)
+- Base (8453)
+- Arbitrum (42161)
+- Taiko (167000)
+
+## Key Contract Features
+
+- **Tipping**: Users can send tips to creators with supported tokens or native currency.
+- **Viewer Rewards**: Mechanism to reward viewers for engagement, with configurable fees.
+- **Membership Tiers**: Different tiers for creators affecting revenue splits (60/40 to 90/10).
+- **Admin Roles**: Support for administrative functions like managing creators and relayers.
+- **Cross-Chain Relay**: Integration with relay.link for cross-chain token transfers.
+
+## Development
+
+To update contract addresses after deployment:
+
+```bash
+node scripts/update-addresses.js
 ```
 
 ## License
