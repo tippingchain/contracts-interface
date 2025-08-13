@@ -1,12 +1,12 @@
-import resolve from '@rollup/plugin-node-resolve';
-import commonjs from '@rollup/plugin-commonjs';
-import typescript from '@rollup/plugin-typescript';
-import json from '@rollup/plugin-json';
-import dts from 'rollup-plugin-dts';
+const resolve = require('@rollup/plugin-node-resolve');
+const commonjs = require('@rollup/plugin-commonjs');
+const typescript = require('@rollup/plugin-typescript');
+const json = require('@rollup/plugin-json');
+const dts = require('rollup-plugin-dts');
 
 const packageJson = require('./package.json');
 
-export default [
+module.exports = [
   {
     input: 'src/index.ts',
     output: [
@@ -31,6 +31,6 @@ export default [
   {
     input: 'dist/index.d.ts',
     output: [{ file: 'dist/index.d.ts', format: 'es' }],
-    plugins: [dts()],
+    plugins: [dts.default()],
   },
 ];

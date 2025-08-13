@@ -5,7 +5,7 @@ export * from './addresses';
 // Import and re-export the ABI
 import StreamingPlatformTippingArtifact from '../abi/StreamingPlatformTipping.json';
 
-export const STREAMING_PLATFORM_TIPPING_ABI = StreamingPlatformTippingArtifact.abi;
+export const STREAMING_PLATFORM_TIPPING_ABI = StreamingPlatformTippingArtifact;
 
 // Convenience exports
 export { 
