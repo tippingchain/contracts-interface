@@ -10,7 +10,7 @@ export const CONTRACT_ADDRESSES: DeploymentManifest = {
     137: "",
     2741: "",
     8453: "0x0430E9549f384529F254983Cf93d54430bE6201C",
-    33139: "",
+    33139: "0x7E51b1A637efccBd91cE2e951953b8CCC7DAbc07",
     42161: "",
     43114: "",
     167000: ""
@@ -27,8 +27,8 @@ export const CONTRACT_ADDRESSES: DeploymentManifest = {
     421614: "",
     11155420: ""
   },
-  timestamp: "2025-08-10T11:36:34.464Z",
-  version: "1.2.0"
+  timestamp: "2025-08-14T13:55:00.000Z",
+  version: "1.4.1"
 };
 
 export function getContractAddress(chainId: number, isTestnet: boolean = false): string | undefined {
