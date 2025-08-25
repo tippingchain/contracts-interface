@@ -18,7 +18,7 @@ export const CONTRACT_ADDRESSES: DeploymentManifest = {
   testnet: {
     97: "",
     11124: "",
-    17000: "0xD4CbCE6aE8Fd2c2a3009607FeB6328bF9BBE4223", // Holesky source contract
+    17000: "0x7CFf1b1Bd0803D2Ef0b4F4273a3cff15e935017b", // Holesky source contract
     33111: "0x2b50C16877a3E262e0D5B9a4B9f7517634Ba27d8", // Curtis destination contract
     43113: "",
     80002: "",
@@ -27,7 +27,7 @@ export const CONTRACT_ADDRESSES: DeploymentManifest = {
     421614: "",
     11155420: ""
   },
-  timestamp: "2025-08-24T10:22:00.000Z", 
+  timestamp: "2025-08-24T15:16:00.000Z", 
   version: "1.5.0"
 };
 
